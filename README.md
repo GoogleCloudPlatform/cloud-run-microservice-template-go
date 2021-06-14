@@ -1,6 +1,6 @@
 # Cloud Run Template Microservice
 
-A template repository for a Cloud Run microservice, written in Go. 
+A template repository for a Cloud Run microservice, written in Go.
 
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
@@ -14,12 +14,11 @@ gcloud services enable run.googleapis.com
 
 ## Features
 
-* **HTTP**: Web server framework
+* **gorilla/mux**: A request router and dispatcher
 * **Buildpack support** Tooling to build production-ready container images from source code and without a Dockerfile
-* **Dockerfile**: Container build instructions, if needed to replace buildpack for custom build
+* **Dockerfile**: Container build instructions
 * **SIGTERM handler**: Catch termination signal for cleanup before Cloud Run stops the container
 * **Service metadata**: Access service metadata, project Id and region, at runtime
-* **Local development utilities**: Auto-restart with changes and prettify logs
 * **Structured logging w/ Log Correlation** JSON formatted logger, parsable by Cloud Logging, with [automatic correlation of container logs to a request log](https://cloud.google.com/run/docs/logging#correlate-logs).
 * **Unit and System tests** Basic unit and system tests setup for the microservice
 
@@ -44,65 +43,95 @@ Learn how to use Cloud Code for:
 #### Local development
 
 1. Set Project Id:
+
     ```bash
     export GOOGLE_CLOUD_PROJECT=<GCP_PROJECT_ID>
     ```
-2. Start the server with hot reload:
+
+2. Build and Start the server:
+
     ```bash
-    
+    go build -o server && ./server
     ```
 
 #### Deploying a Cloud Run service
 
 1. Set Project Id:
+
     ```bash
     export GOOGLE_CLOUD_PROJECT=<GCP_PROJECT_ID>
     ```
-2. Build the container using a buildpack:
-    ```bash
-    
+
+2. Use the gcloud credential helper to authorize Docker to push to your
+   Container Registry:
+
+   ```bash
+    gcloud auth configure-docker
     ```
-3. Deploy to Cloud Run:
+
+3. Build and push the container using docker:
+
     ```bash
-    
+    docker build . -t gcr.io/$GOOGLE_CLOUD_PROJECT/microservice-template
+    docker push gcr.io/$GOOGLE_CLOUD_PROJECT/microservice-template
+    ```
+
+4. Deploy to Cloud Run:
+
+    ```bash
+    gcloud run deploy microservice-template \
+      --image gcr.io/$GOOGLE_CLOUD_PROJECT/microservice-template \
+      --platform managed
     ```
 
 ### Run sample tests
 
 1. [Pass credentials via `GOOGLE_APPLICATION_CREDENTIALS` env var](https://cloud.google.com/docs/authentication/production#passing_variable):
+
     ```bash
     export GOOGLE_APPLICATION_CREDENTIALS="[PATH]"
     ```
 
 2. Set Project Id:
+
     ```bash
     export GOOGLE_CLOUD_PROJECT=<GCP_PROJECT_ID>
     ```
+
 3. Run unit tests
+
     ```bash
-    
+    go test ./...
     ```
 
 4. Run system tests
+
     ```bash
     gcloud builds submit \
-        --config test/advance.cloudbuild.yaml \
-        --substitutions 'COMMIT_SHA=manual'
+        --config advance.cloudbuild.yaml \
+        --substitutions=COMMIT_SHA=manual,REPO_NAME=manual
     ```
-    The Cloud Build configuration file will build and deploy the containerized service
-    to Cloud Run, run tests managed by NPM, then clean up testing resources. This configuration restricts public
-    access to the test service. Therefore, service accounts need to have the permission to issue Id tokens for request authorization:
+
+    The Cloud Build configuration file will build and deploy the containerized
+    service to Cloud Run, run tests, then clean up testing resources. This
+    configuration restricts public access to the test service. Therefore,
+    service accounts need to have the permission to issue ID tokens for request
+    authorization:
     * Enable Cloud Build and IAM APIs:
+
         ```bash
         gcloud services enable cloudbuild.googleapis.com iamcredentials.googleapis.com
         ```
+
     * Set environment variables.
+
         ```bash
         export PROJECT_ID="$(gcloud config get-value project)"
         export PROJECT_NUMBER="$(gcloud projects describe $(gcloud config get-value project) --format='value(projectNumber)')"
         ```
 
     * Create service account `token-creator` with `Service Account Token Creator` and `Cloud Run Invoker` roles.
+
         ```bash
         gcloud iam service-accounts create token-creator
 
@@ -115,6 +144,7 @@ Learn how to use Cloud Code for:
         ```
 
     * Add `Service Account Token Creator` role to the Cloud Build service account.
+
         ```bash
         gcloud projects add-iam-policy-binding $PROJECT_ID \
             --member="serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com" \

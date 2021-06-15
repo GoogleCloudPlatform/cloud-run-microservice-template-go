@@ -27,8 +27,8 @@ func (a *App) Handler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	l = l.WithRequest(r)
-	l.Infof("Structured logging example.")
-	w.Header().Add("Content-Type", "application/text")
+	l.WithRequest(r).
+		WithLabels(map[string]string{"arbitraryField": "custom entry"}).
+		Infof("Structured logging example.")
 	fmt.Fprintf(w, "Hello World!\n")
 }

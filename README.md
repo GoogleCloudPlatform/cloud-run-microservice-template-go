@@ -123,14 +123,14 @@ Learn how to use Cloud Code for:
         gcloud services enable cloudbuild.googleapis.com iamcredentials.googleapis.com
         ```
 
-    * Set environment variables.
+    1. Set environment variables.
 
         ```bash
         export PROJECT_ID="$(gcloud config get-value project)"
         export PROJECT_NUMBER="$(gcloud projects describe $(gcloud config get-value project) --format='value(projectNumber)')"
         ```
 
-    * Create service account `token-creator` with `Service Account Token Creator` and `Cloud Run Invoker` roles.
+    2. Create service account `token-creator` with `Service Account Token Creator` and `Cloud Run Invoker` roles.
 
         ```bash
         gcloud iam service-accounts create token-creator
@@ -143,7 +143,7 @@ Learn how to use Cloud Code for:
             --role="roles/run.invoker"
         ```
 
-    * Add `Service Account Token Creator` role to the Cloud Build service account.
+    3. Add `Service Account Token Creator` role to the Cloud Build service account.
 
         ```bash
         gcloud projects add-iam-policy-binding $PROJECT_ID \

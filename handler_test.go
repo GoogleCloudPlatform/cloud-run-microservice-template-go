@@ -18,12 +18,20 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"cloud.google.com/go/logging/jsonlog"
 )
 
-func TestApp_Handler(t *testing.T) {
+func TestHandler(t *testing.T) {
 	rr := httptest.NewRecorder()
 	req := httptest.NewRequest("GET", "http://example.com", nil)
-	app := &App{}
+	l, err := jsonlog.NewLogger("projects/testing")
+	if err != nil {
+		t.Fatalf("unable to initialize logger: %v", err)
+	}
+	app := &App{
+		log: l,
+	}
 
 	app.Handler(rr, req)
 	if rr.Code != http.StatusOK {

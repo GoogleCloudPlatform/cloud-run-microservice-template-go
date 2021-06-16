@@ -17,17 +17,10 @@ package main
 import (
 	"fmt"
 	"net/http"
-
-	"cloud.google.com/go/logging/jsonlog"
 )
 
 func (a *App) Handler(w http.ResponseWriter, r *http.Request) {
-	l, err := jsonlog.NewLogger(fmt.Sprintf("projects/%s", a.projectID))
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	l.WithRequest(r).
+	a.log.WithRequest(r).
 		WithLabels(map[string]string{"arbitraryField": "custom entry"}).
 		Infof("Structured logging example.")
 	fmt.Fprintf(w, "Hello World!\n")

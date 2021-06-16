@@ -23,6 +23,7 @@ import (
 	"os/signal"
 	"time"
 
+	"cloud.google.com/go/logging/jsonlog"
 	"example.com/micro/metadata"
 	"github.com/gorilla/mux"
 )
@@ -30,6 +31,7 @@ import (
 type App struct {
 	*http.Server
 	projectID string
+	log       *jsonlog.Logger
 }
 
 func main() {
@@ -85,6 +87,12 @@ func newApp(ctx context.Context, port, projectID string) (*App, error) {
 		projectID = projID
 	}
 	app.projectID = projectID
+
+	l, err := jsonlog.NewLogger(fmt.Sprintf("projects/%s", app.projectID))
+	if err != nil {
+		return nil, fmt.Errorf("unable to initialize logger: %v", err)
+	}
+	app.log = l
 
 	// Setup request router.
 	r := mux.NewRouter()

@@ -32,11 +32,11 @@ func ProjectID() (string, error) {
 // information from the GCP metadata server. The returned value is in the format
 // of: projects/PROJECT_NUMBER/regions/REGION.
 func Region() (string, error) {
-	// TODO: cache this value.
 	resp, err := metadata.Get("instance/region")
 	if err != nil {
 		return "", nil
 	}
+
 	return resp, nil
 }
 

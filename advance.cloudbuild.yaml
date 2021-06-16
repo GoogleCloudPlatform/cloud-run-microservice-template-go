@@ -21,7 +21,11 @@ steps:
 
 - id: 'Lint'
   name: golang
-  args: ['goimports', '-w', '.']
+  entrypoint: /bin/bash
+  args:
+    - '-c'
+    - |
+      goimports -l . 2>&1 | tee /dev/stderr | (! read)
 
 - id: 'Run Unit Tests'
   name: golang

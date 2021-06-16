@@ -38,7 +38,7 @@ func TestHandler(t *testing.T) {
 		t.Errorf("Code = %d, want %d", rr.Code, http.StatusOK)
 	}
 	wantBody := "Hello World!\n"
-	if rr.Body.String() != wantBody {
-		t.Errorf("Body = %q, want %q", rr.Body.String(), wantBody)
+	if got := rr.Body.String(); got != wantBody {
+		t.Errorf("Body = %q, want %q", got, wantBody)
 	}
 }

@@ -57,7 +57,6 @@ steps:
       gcloud run deploy ${_SERVICE_NAME}-$(cat _short_id) \
         --image $_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA \
         --region ${_DEPLOY_REGION} \
-        --platform ${_PLATFORM} \
         --no-allow-unauthenticated
 
 - id: 'Retrieve Service URL'
@@ -93,13 +92,12 @@ steps:
     - '-c'
     - |
       gcloud container images delete $_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA --quiet
-      gcloud run services delete ${_SERVICE_NAME}-$(cat _short_id) --region ${_DEPLOY_REGION} --platform ${_PLATFORM} --quiet
+      gcloud run services delete ${_SERVICE_NAME}-$(cat _short_id) --region ${_DEPLOY_REGION} --quiet
 
 substitutions:
   _GCR_HOSTNAME: us.gcr.io
   _SERVICE_NAME: microservice-template
   _DEPLOY_REGION: us-central1
-  _PLATFORM: managed
 
 options:
   volumes:

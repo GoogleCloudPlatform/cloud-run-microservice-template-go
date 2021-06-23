@@ -54,7 +54,7 @@ func main() {
 	}()
 
 	// Listen for SIGINT to gracefully shutdown.
-	nctx, stop := signal.NotifyContext(ctx, os.Interrupt)
+	nctx, stop := signal.NotifyContext(ctx, os.Interrupt, os.Kill)
 	defer stop()
 	<-nctx.Done()
 	log.Println("shutdown initiated")

@@ -53,8 +53,7 @@ steps:
   args:
     - '-c'
     - |
-      cat /dev/urandom | LC_CTYPE=C tr -dc 'a-z0-9' | head -c 15 > _short_id # Generate a random 15 character alphanumeric string (lowercase only)
-      gcloud run deploy ${_SERVICE_NAME}-$(cat _short_id) \
+      gcloud run deploy ${_SERVICE_NAME}-$BUILD_ID \
         --image $_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA \
         --region ${_DEPLOY_REGION} \
         --no-allow-unauthenticated

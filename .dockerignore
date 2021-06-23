@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# The .dockerignore file excludes files from the container build process.
+# https://docs.docker.com/engine/reference/builder/#dockerignore-file
 # Exclude "build-time" ignore files.
 .dockerignore
 .gcloudignore

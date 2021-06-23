@@ -80,8 +80,7 @@ Learn how to use Cloud Code for:
 
     ```bash
     gcloud run deploy microservice-template \
-      --image gcr.io/$GOOGLE_CLOUD_PROJECT/microservice-template \
-      --platform managed
+      --image gcr.io/$GOOGLE_CLOUD_PROJECT/microservice-template
     ```
 
 ### Run sample tests

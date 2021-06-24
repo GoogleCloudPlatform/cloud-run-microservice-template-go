@@ -35,8 +35,7 @@
 # Retrieve Cloud Run service URL -
 # Cloud Run URLs are not deterministic.
 get_url() {
-    bid=$(test "$1" && echo "$1" || cat _short_id)
-    gcloud run services describe ${_SERVICE_NAME}-${bid} \
+    gcloud run services describe ${_SERVICE_NAME}-${BUILD_ID} \
         --format 'value(status.url)' \
         --region ${_DEPLOY_REGION} \
         --platform managed

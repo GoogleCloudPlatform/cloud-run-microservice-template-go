@@ -71,6 +71,7 @@ steps:
   env:
     - '_SERVICE_NAME=${_SERVICE_NAME}'
     - '_DEPLOY_REGION=${_DEPLOY_REGION}'
+    - 'BUILD_ID=${BUILD_ID}'
     - 'PROJECT_ID=${PROJECT_ID}'
   
 - id: 'Run System Tests'
@@ -91,7 +92,7 @@ steps:
     - '-c'
     - |
       gcloud container images delete $_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA --quiet
-      gcloud run services delete ${_SERVICE_NAME}-$(cat _short_id) --region ${_DEPLOY_REGION} --quiet
+      gcloud run services delete ${_SERVICE_NAME}-$BUILD_ID --region ${_DEPLOY_REGION} --quiet
 
 substitutions:
   _GCR_HOSTNAME: us.gcr.io

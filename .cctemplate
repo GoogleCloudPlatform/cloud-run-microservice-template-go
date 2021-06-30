@@ -1,0 +1,17 @@
+
+{
+  "name": "cloud-run-microservice-template-go",
+  "metadata": {
+    "version": "0.1.0"
+  },
+  "templates": [
+    {
+      "path": "./",
+      "name": "Cloud Run Microservice Template - Go",
+      "description": "Basic microservice template for Cloud Run",
+      "languages": [
+        "Go""
+      ]
+    }
+  ]
+}

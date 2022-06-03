@@ -25,7 +25,9 @@ steps:
   args:
     - '-c'
     - |
-      goimports -l . 2>&1 | tee /dev/stderr | (! read)
+      # goimports -l . 2>&1 | tee /dev/stderr | (! read)
+      goimports -w .
+      git diff
 
 - id: 'Run Unit Tests'
   name: golang

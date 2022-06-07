@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "config:base",
+    "schedule:weekly",
+    ":disableDependencyDashboard"
+  ],
+  "semanticCommits": false,
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
+  "commitMessagePrefix": "chore(all): ",
+  "commitMessageAction": "update",
+  "ignorePaths": [
+    "testing/docker/Dockerfile*"
+  ],
+  "groupName": "all",
+  "packageRules": [
+    {
+      "updateTypes": ["major"],
+      "enabled": false
+    }
+  ],
+  "force": {
+    "constraints": {
+      "go": "1.16"
+    }
+  }
+}

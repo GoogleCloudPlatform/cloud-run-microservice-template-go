@@ -12,15 +12,15 @@
 steps:
 
 - id: 'Download dependencies'
-  name: golang
+  name: golang:1.16.15
   args: ['go', 'mod', 'download']
 
 - id: 'Install linting tools'
-  name: golang
+  name: golang:1.16.15
   args: ['go', 'install', 'golang.org/x/tools/cmd/goimports@latest']
 
 - id: 'Lint'
-  name: golang
+  name: golang:1.16.15
   entrypoint: /bin/bash
   args:
     - '-c'
@@ -28,7 +28,7 @@ steps:
       goimports -l . 2>&1 | tee /dev/stderr | (! read)
 
 - id: 'Run Unit Tests'
-  name: golang
+  name: golang:1.16.15
   args: ['go', 'test', '-v', './...']
 
 # Setup resources for system tests
@@ -75,7 +75,7 @@ steps:
     - 'PROJECT_ID=${PROJECT_ID}'
   
 - id: 'Run System Tests'
-  name: golang
+  name: golang:1.16.15
   entrypoint: /bin/bash
   args:
     - '-c'

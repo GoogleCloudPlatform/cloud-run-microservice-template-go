@@ -23,15 +23,18 @@ import (
 	"os/signal"
 	"time"
 
-	"cloud.google.com/go/logging/jsonlog"
+	"cloud.google.com/go/logging"
 	"example.com/micro/metadata"
 	"github.com/gorilla/mux"
+	"google.golang.org/api/option"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type App struct {
 	*http.Server
 	projectID string
-	log       *jsonlog.Logger
+	log       *logging.Logger
 }
 
 func main() {
@@ -88,11 +91,16 @@ func newApp(ctx context.Context, port, projectID string) (*App, error) {
 	}
 	app.projectID = projectID
 
-	l, err := jsonlog.NewLogger(fmt.Sprintf("projects/%s", app.projectID))
+	client, err := logging.NewClient(ctx, fmt.Sprintf("projects/%s", app.projectID),
+		// We don't need to make any requests when logging to stderr.
+		option.WithoutAuthentication(),
+		option.WithGRPCDialOption(
+			grpc.WithTransportCredentials(insecure.NewCredentials()),
+		))
 	if err != nil {
-		return nil, fmt.Errorf("unable to initialize logger: %v", err)
+		return nil, fmt.Errorf("unable to initialize logging client: %v", err)
 	}
-	app.log = l
+	app.log = client.Logger("test-log", logging.RedirectAsJSON(os.Stderr))
 
 	// Setup request router.
 	r := mux.NewRouter()

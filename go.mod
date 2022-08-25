@@ -6,7 +6,7 @@ require (
 	cloud.google.com/go/compute v1.9.0
 	cloud.google.com/go/logging v1.5.0
 	github.com/gorilla/mux v1.8.0
-	golang.org/x/oauth2 0ebed06d0094
+	golang.org/x/oauth2 v0.0.0-20220822191816-0ebed06d0094
 	google.golang.org/api v0.94.0
 	google.golang.org/grpc v1.49.0
 )
@@ -25,5 +25,5 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20220804142021-4e6b2dfa6612 // indirect
-	google.golang.org/protobuf v1.28.0 // indirect
+	google.golang.org/protobuf v1.28.1 // indirect
 )

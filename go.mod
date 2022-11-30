@@ -3,12 +3,12 @@ module example.com/micro
 go 1.19
 
 require (
-	cloud.google.com/go/compute/metadata v0.1.0
-	cloud.google.com/go/logging v1.5.0
+	cloud.google.com/go/compute/metadata v0.2.1
+	cloud.google.com/go/logging v1.6.0
 	github.com/gorilla/mux v1.8.0
-	golang.org/x/oauth2 v0.1.0
-	google.golang.org/api v0.101.0
-	google.golang.org/grpc v1.50.1
+	golang.org/x/oauth2 v0.2.0
+	google.golang.org/api v0.103.0
+	google.golang.org/grpc v1.51.0
 )
 
 require (

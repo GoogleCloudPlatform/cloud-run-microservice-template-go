@@ -37,7 +37,7 @@ steps:
   entrypoint: pack
   args:
     - build
-    - '--builder=gcr.io/buildpacks/builder:v1'
+    - '--builder=gcr.io/buildpacks/builder:latest'
     - '$_GCR_HOSTNAME/$PROJECT_ID/$_REPOSITORY/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
     
 

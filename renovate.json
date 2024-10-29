@@ -1,9 +1,9 @@
 {
   "extends": [
-    "config:base",
+    "config:recommended",
     "schedule:weekly"
   ],
-  "semanticCommits": false,
+  "semanticCommits": "disabled",
   "postUpdateOptions": [
     "gomodTidy"
   ],
@@ -15,7 +15,9 @@
   "groupName": "all",
   "packageRules": [
     {
-      "updateTypes": ["major"],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "enabled": false
     }
   ],

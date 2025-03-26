@@ -5,7 +5,8 @@
   ],
   "semanticCommits": "disabled",
   "postUpdateOptions": [
-    "gomodTidy"
+    "gomodTidy",
+    "gomodNoMassage"
   ],
   "commitMessagePrefix": "chore(all): ",
   "commitMessageAction": "update",

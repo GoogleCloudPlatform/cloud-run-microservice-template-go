@@ -1,9 +1,10 @@
 {
   "extends": [
-    "config:base",
+    "config:recommended",
     "schedule:weekly"
   ],
   "semanticCommits": "disabled",
+  "goGetDirs": ["./..."],
   "postUpdateOptions": [
     "gomodTidy"
   ],

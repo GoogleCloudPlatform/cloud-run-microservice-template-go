@@ -4,6 +4,7 @@
     "schedule:weekly"
   ],
   "semanticCommits": "disabled",
+  "goGetDirs": ["./..."],
   "postUpdateOptions": [
     "gomodTidy"
   ],

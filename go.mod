@@ -2,15 +2,15 @@ module example.com/micro
 
 go 1.23.0
 
-toolchain go1.24.1
+toolchain go1.25.3
 
 require (
-	cloud.google.com/go/compute/metadata v0.5.1
-	cloud.google.com/go/logging v1.11.0
+	cloud.google.com/go/compute/metadata v0.9.0
+	cloud.google.com/go/logging v1.13.0
 	github.com/gorilla/mux v1.8.1
-	golang.org/x/oauth2 v0.27.0
-	google.golang.org/api v0.198.0
-	google.golang.org/grpc v1.66.2
+	golang.org/x/oauth2 v0.32.0
+	google.golang.org/api v0.252.0
+	google.golang.org/grpc v1.76.0
 )
 
 require (

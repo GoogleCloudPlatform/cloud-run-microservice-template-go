@@ -10,7 +10,7 @@ require (
 	github.com/gorilla/mux v1.8.1
 	golang.org/x/oauth2 v0.27.0
 	google.golang.org/api v0.198.0
-	google.golang.org/grpc v1.66.2
+	google.golang.org/grpc v1.79.3
 )
 
 require (
